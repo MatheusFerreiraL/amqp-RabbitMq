@@ -1,0 +1,23 @@
+{
+  "name": "amqp-rabbitmq",
+  "version": "1.0.0",
+  "description": "Projeto da matéria de Sistemas Distribuídos usando o protocolo  AMQP para enfileiramento de mensagens",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MatheusFerreiraL/amqp-RabbitMq.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MatheusFerreiraL/amqp-RabbitMq/issues"
+  },
+  "homepage": "https://github.com/MatheusFerreiraL/amqp-RabbitMq#readme",
+  "dependencies": {
+    "amqplib": "^0.10.3"
+  }
+}
