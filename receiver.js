@@ -5,23 +5,23 @@ const amqp = require("amqplib/callback_api");
 amqp.connect("amqp://localhost", (connError, connection) => {
   if (connError) throw connError;
 
-  //Create channel
+  //Cria canal de comunicação
   connection.createChannel((channelError, channel) => {
     if (channelError) throw channelError;
 
-    //Assert queue : verify if the queue exists, if not, create it (never create a repeated queue)
+    //Assert queue : verifica se a fila existe, se não, cria (mas nunca vai criar repetida)
     const QUEUE = "lavenderias";
     channel.assertQueue(QUEUE);
 
-    //Receive message from queue
+    //Recebe a mensagem da fila
     channel.consume(
       QUEUE,
       msg => {
         console.log(
           `Message received from ${QUEUE}: ${msg.content.toString()}`
-        ); //message is received as a buffer, so we need to convert it to string
-        //Message is consumed, so we need to acknowledge it to specify that we received it -> passed as a third parameter
-      },
+        ); //Mensagem é recebida como buffer, então precisa converter para string
+        //Mensagem é consumida então precisamos informar que foi lida (para sair da fila)
+      } ,
       { noAck: true }
     );
   });
