@@ -49,7 +49,7 @@ const lote3 = [
   },
   {
     message: "Mensagem 15",
-  }
+  },
 ];
 const lote4 = [
   {
@@ -66,7 +66,7 @@ const lote4 = [
   },
   {
     message: "Mensagem 20",
-  }
+  },
 ];
 const lote5 = [
   {
@@ -83,33 +83,32 @@ const lote5 = [
   },
   {
     message: "Mensagem 25",
-  }
+  },
 ];
-
 
 // Conexão com o RabbitMQ
 amqp.connect("amqp://localhost", (connError, connection) => {
   if (connError) throw connError;
 
-  //Create channel
+  //Cria canal de comunicação
   connection.createChannel((channelError, channel) => {
     if (channelError) throw channelError;
 
-    //Assert queue : verify if the queue exists, if not, create it
+    ///Assert queue : verifica se a fila existe, se não, cria
     const QUEUE = "lavenderias";
     channel.assertQueue(QUEUE);
 
-    //Send message to queue
+    //Manda mensagem para fila
     sendMessageRMQ(lote1);
     sendMessageRMQ(lote2);
     sendMessageRMQ(lote3);
     sendMessageRMQ(lote4);
     sendMessageRMQ(lote5);
     console.log(`Messages sent to ${QUEUE}`);
-    function sendMessageRMQ(lote){
+    function sendMessageRMQ(lote) {
       lote.forEach(element => {
         channel.sendToQueue(QUEUE, Buffer.from(element.message));
       });
-    };
+    }
   });
 });

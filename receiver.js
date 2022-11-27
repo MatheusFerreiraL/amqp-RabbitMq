@@ -11,6 +11,7 @@ amqp.connect("amqp://localhost", (connError, connection) => {
 
     //Assert queue : verifica se a fila existe, se não, cria (mas nunca vai criar repetida)
     const QUEUE = "lavenderias";
+    const confirmaLeitura = false; //Para confirmar leitura da mensagem e retirá-la da fila, deve ser alterado para true
     channel.assertQueue(QUEUE);
 
     //Recebe a mensagem da fila
@@ -21,8 +22,8 @@ amqp.connect("amqp://localhost", (connError, connection) => {
           `Message received from ${QUEUE}: ${msg.content.toString()}`
         ); //Mensagem é recebida como buffer, então precisa converter para string
         //Mensagem é consumida então precisamos informar que foi lida (para sair da fila)
-      } ,
-      { noAck: true }
+      },
+      { noAck: confirmaLeitura }
     );
   });
 });
